@@ -1,9 +1,11 @@
-import { useState,useEffect } from "react"
+import { useState,useEffect, useContext } from "react"
 import { GetAllProducts } from "../services/ProductsServices"
+import { CartContext } from "../context/CartContext";
 
 
 function Catalog(){
     const [listOfProducts,setListOfProducts] = useState([]);
+    const {dispatch} = useContext(CartContext);
 
     useEffect(()=>{
         const fetchData = async() =>{
@@ -30,7 +32,15 @@ function Catalog(){
                                                 </div>
                                             </div>
                                             <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                                <div className="text-center"><a className="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                                                <div className="text-center">
+                                                    <a className="btn btn-outline-dark mt-auto" 
+                                                    onClick={
+                                                        ()=>{
+                                                            dispatch({type:"ADD",payload:product})
+                                                        }
+                                                    }
+                                                    >Agregar al Carrito</a>
+                                                </div>
                                             </div>
                                         </div>        
                                     </div>
