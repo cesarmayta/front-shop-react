@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/home";
 import Cart from "../pages/cart";
 import Auth from "../pages/Auth";
+import Admin from "../pages/Admin";
 
 const router = createBrowserRouter([
     {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     {
         path:"/auth",
         element:<Auth/>
+    },
+    {
+        path:"/admin",
+        element:<Admin/>
     }
 ])
 

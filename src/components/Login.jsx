@@ -1,11 +1,17 @@
 import { LoginService } from "../services/AuthServices";
-import { useState } from "react";
+import { useState,useContext } from "react";
+import { AdminContext } from "../context/AdminContext";
+import { useNavigate } from "react-router-dom";
+
 
 function Login(){
     const [userCredentials,setUserCredentials] = useState({
         username:"",
         password:""
     })
+    const {authentication,setAuthentication} = useContext(AdminContext);
+
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const {name,value} = e.currentTarget;
@@ -23,9 +29,22 @@ function Login(){
         if(response.status === 200 && response.data.status === true){
             localStorage.setItem("token",response.data.content);
             console.log("login correcto")
+            setAuthentication({
+                ...authentication,
+                isAuthenticated: true,
+                isError:false,
+                successMessage : "login correcto"
+            })
+            navigate("/admin")
         }
         else{
             console.log("credenciales no validas")
+            setAuthentication({
+                ...authentication,
+                isAuthenticated: false,
+                isError:true,
+                errorMessage : response.data.content
+            })
         }
     }
 
@@ -47,6 +66,12 @@ function Login(){
             />
             <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         </form>
+        {authentication.isError && (
+            <div className="alert alert-danger" role="alert">
+                {authentication.errorMessage}
+            </div>
+            )
+        }
         </>
     )
 }
