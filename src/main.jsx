@@ -1,7 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import Cart from './pages/cart'
 import { CartProvider } from './context/CartContext'
 import { AdminContextProvider } from './context/AdminContext'
 import { RouterProvider } from 'react-router-dom'
